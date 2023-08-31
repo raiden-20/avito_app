@@ -15,9 +15,5 @@ COPY redis.conf /usr/local/redis/redis.conf
 
 WORKDIR /data
 RUN  rm -f ~/dump.rdb /dump.rdb
-# RUN sed '/port 6379/d' /etc/redis/redis.conf
-# RUN echo 'tls-port 6379' >> /etc/redis/redis.conf
-# RUN echo 'tls-client-cert-file /usr/local/redis/redis.crt' >> /etc/redis/redis.conf
-# RUN echo 'tls-client-key-file /usr/local/redis/redis.key' >> /etc/redis/redis.conf
 
 CMD ["redis-server", "/usr/local/redis/redis.conf"]

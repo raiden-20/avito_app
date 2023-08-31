@@ -20,8 +20,6 @@ services:
     container_name: app
     environment:
       - REDIS_PASSWORD=$SUPER_SECRET_PASSWORD
-      - PATH_TO_CERT=$PATH_TO_CERT
-      - PATH_TO_KEY=$PATH_TO_KEY
     networks:
       - backend
     depends_on:
