@@ -1,0 +1,46 @@
+version: "3.9"
+services:
+  redis:
+    build: 
+      context: ./redis
+      dockerfile: Dockerfile
+    container_name: redis
+    command: redis-server --requirepass $SUPER_SECRET_PASSWORD
+    volumes:
+      - redis_volume_data:/data
+    networks:
+      - backend
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli","ping"]
+  app:
+    build: 
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: app
+    environment:
+      - REDIS_PASSWORD=$SUPER_SECRET_PASSWORD
+      - PATH_TO_CERT=$PATH_TO_CERT
+      - PATH_TO_KEY=$PATH_TO_KEY
+    networks:
+      - backend
+    depends_on:
+      - redis
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    ports:
+      - 8089:8089
+    networks:
+      - backend
+    depends_on:
+      - app
+  
+volumes:
+  redis_volume_data:
+    name: redis_volume_data
+networks:
+  backend:
+    name: backend
