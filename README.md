@@ -1,7 +1,6 @@
 ## Avito_app DevOps
-### Приложение - телефонная книга
 -----
-БД Redis содержит пары "key"-"val", где key - имена, val - номера телефонов
+БД Redis содержит пары "key"-"val"
 - в контейнерах базовый образ Debian
 - Docker Compose version > 3.3
 - Golang и Redis
